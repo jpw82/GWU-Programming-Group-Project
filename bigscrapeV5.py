@@ -9,32 +9,37 @@ Created on Sun Nov  9 14:02:37 2014
 import brscraper
 import pandas as pd
 import numpy as np
-import matplotlib
 
+###define scraper function
 scraper = brscraper.BRScraper()
 
+###example scrape for one team 
+balt = scraper.parse_tables("teams/tgl.cgi?team=BAL&t=b&year=2014")
+
+
+###list of team abbreviations
 teams = ["ARI","ATL","BAL","BOS","CHC","CHW","CIN","CLE","COL","DET",
          "HOU","KCR","LAA","LAD","MIA","MIL","MIN","NYM","NYY","OAK",
          "PHI","PIT","SDP","SFG","SEA","STL","TBR","TEX","TOR","WSN"]
 
+####Empty dictionary to store all dat
 teamdict = {}
 
-for ix, team in enumerate(teams):
+for i, team in enumerate(teams):
   teamdict[team] = scraper.parse_tables("/teams/tgl.cgi?team=%s&t=b&year2014=" % (team))
 
+####Example queery of teamdict for team, game and statistic
+teamdict["ARI"]["team_batting_gamelogs"][1]["Rslt"]
 
+
+###convert teamdict to data frame
 DF2014 = pd.DataFrame.from_dict(data = teamdict, orient = "index")
-
-
-# example format for selecting a specific team , game and then stat from the master data frame
-
-DF2014["team_batting_gamelogs"]["ARI"][5]["Rslt"]
 
 #should return the result of the 6th game of the season for the arizona cardinals, L, 5-8
 
 
-## now go through the DF2014 data frame and pull out the home run and win/loss/score data 
-## for each team and game
+###Now I ultimatley need one data table with each teams season avg for the 6 offensive stats 
+### and winning percentage. So I make individual tables for each stat for all teams to compute avg's
 
 teamlist = list(range(30))
 games = list(range(162))
@@ -48,7 +53,7 @@ homeruns = {}
 results = {}
 WinLoss = {}
 
-for ix, team in enumerate(teams):
+for i, team in enumerate(teams):
         stolen[team] = []
         strikeouts[team] = []
         hits[team] = []
@@ -66,7 +71,7 @@ for ix, team in enumerate(teams):
             results[team].append(DF2014["team_batting_gamelogs"][team][j]["Rslt"])
 
 ###Special loop to seperate the result column into seperate columns for result and score#####      
-for ix, team in enumerate(teams):
+for i, team in enumerate(teams):
     WinLoss[team] = []
     for j in games:
         parts = results[team][j].strip().split(",")

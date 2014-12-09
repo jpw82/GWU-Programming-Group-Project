@@ -26,13 +26,7 @@ Tripletable = pd.DataFrame.from_csv("triples2014.csv")
 HRtable = pd.DataFrame.from_csv("homeruns2014.csv")
 Wintable = pd.DataFrame.from_csv("wins2014.csv")
 
-###send to MySQL for use in R
-
-
-
-
 ###calculate the winning percentage for each team and put it in a list
-
 
 evenlist = list(range(0,60, 2))
 teamwinpct = []
@@ -49,10 +43,6 @@ winpct2014 = winpct2014.rename(columns = {0:"WinPct"})
 #winpct2014.to_csv("winpct2014.csv") 
 
 ################Get the season average for each team for each stat
-
-teamlist = list(range(30))
-
-avglist = ["avgSB", "avgSO", "avgHits","avgDBL","avgTRPL","avgHRs"]
 
 avgSB = SBtable.sum(0)/float(162)
 avgSO = SOtable.sum(0)/float(162)
@@ -88,13 +78,8 @@ mlbdf2014 = winpct2014.join(other = [avgSB,avgSO,avgHits,avgDBL,avgTRPL,avgHRs])
 #create database MLB;
 #use MLB;
                 
-                
 ###send everything to MySQL for use in R
-
-
 #connect to mySQL database
-
-
 
 ##ADJUST THESE PARAMETERS IF YOU ARE RUNNING THIS PROGRAM ON A NEW COMPUTER
 dbConnect = myDB.connect(host='localhost',

@@ -1,9 +1,6 @@
-# Rely on the 'WorldPhones' dataset in the datasets
-# package (which generally comes preloaded).
-library(datasets)
-mlbdf2014 <- read.csv("~/Downloads/Shiny/mlbdf2014.csv")
-MLBNovTwitter <- read.csv("~/Downloads/Shiny/NovTwitterScore.csv")
-R2Table <- read.csv("~/Downloads/Shiny/R2Table.csv")
+mlbdf2014 <- read.csv("mlbdf2014.csv")
+MLBNovTwitter <- read.csv("NovTwitterScore.csv")
+R2Table <- read.csv("R2Table.csv")
 
 colnames(mlbdf2014) = c("Team", 
                         "WinningPercentage", 

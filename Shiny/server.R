@@ -73,8 +73,6 @@ shinyServer(function(input, output, session) {
   session$onSessionEnded(function() {
     obs$suspend()
     
-    # Also clean up the log file for this example
-    unlink(logfilename)
   })
   
   #This is the Linear Regression Model we developed to predict winning percentage

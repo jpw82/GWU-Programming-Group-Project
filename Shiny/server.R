@@ -1,9 +1,9 @@
 library(shiny)
 library(ggplot2)
-setwd('~/Downloads/Shiny/')
-mlbdf2014 <- read.csv("~/Downloads/Shiny/mlbdf2014.csv")
-MLBNovTwitter <- read.csv("~/Downloads/Shiny/NovTwitterScore.csv")
-R2Table <- read.csv("~/Downloads/Shiny/R2Table.csv")
+setwd('~/GitHub/GWU-Programming-Group-Project/Shiny')
+mlbdf2014 <- read.csv("mlbdf2014.csv")
+MLBNovTwitter <- read.csv("NovTwitterScore.csv")
+R2Table <- read.csv("R2Table.csv")
 
 #Rename the columns for better looking output
 colnames(mlbdf2014) = c("Team", 
@@ -73,8 +73,6 @@ shinyServer(function(input, output, session) {
   session$onSessionEnded(function() {
     obs$suspend()
     
-    # Also clean up the log file for this example
-    unlink(logfilename)
   })
   
   #This is the Linear Regression Model we developed to predict winning percentage
